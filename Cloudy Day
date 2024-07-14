@@ -1,0 +1,57 @@
+def maximumPeople(p, x, y, r):
+    n = len(p)
+    m = len(y)
+    
+    sunny_population = 0
+    cloud_town_coverage = [0] * m
+    town_covered_by_cloud = [0] * n
+    cloud_coverage = [[] for _ in range(m)]
+    
+    for i in range(m):
+        cloud_start = y[i] - r[i]
+        cloud_end = y[i] + r[i]
+        
+        for j in range(n):
+            if cloud_start <= x[j] <= cloud_end:
+                town_covered_by_cloud[j] += 1
+                cloud_town_coverage[i] += p[j]
+                cloud_coverage[i].append(j)
+    
+    sunny_population = sum(p[j] for j in range(n) if town_covered_by_cloud[j] == 0)
+    
+    max_sunny = sunny_population
+    
+    for i in range(m):
+        current_sunny = sunny_population
+        
+        for j in cloud_coverage[i]:
+            if town_covered_by_cloud[j] == 1:
+                current_sunny += p[j]
+        
+        max_sunny = max(max_sunny, current_sunny)
+    
+    return max_sunny
+
+def main():
+    import sys
+    input = sys.stdin.read
+    data = input().split()
+    
+    index = 0
+    n = int(data[index])
+    index += 1
+    p = list(map(int, data[index:index + n]))
+    index += n
+    x = list(map(int, data[index:index + n]))
+    index += n
+    m = int(data[index])
+    index += 1
+    y = list(map(int, data[index:index + m]))
+    index += m
+    r = list(map(int, data[index:index + m]))
+    
+    result = maximumPeople(p, x, y, r)
+    print(result)
+
+if __name__ == "__main__":
+    main()
