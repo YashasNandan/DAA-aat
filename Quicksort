@@ -1,0 +1,26 @@
+def quickSort(arr):
+    pivot = arr[0]
+    lst = [pivot]
+    for value in arr[1:]:
+        if value < pivot:
+            lst.insert(0, value)
+        else:
+            lst.append(value)
+    return lst
+
+def main():
+    import os
+    import sys
+    input = sys.stdin.read
+    data = input().splitlines()
+
+    output_path = os.getenv("OUTPUT_PATH")
+    with open(output_path, 'w') as fout:
+        n = int(data[0].strip())
+        arr = list(map(int, data[1].strip().split()))
+        result = quickSort(arr)
+
+        fout.write(" ".join(map(str, result)) + "\n")
+
+if __name__ == "__main__":
+    main()
