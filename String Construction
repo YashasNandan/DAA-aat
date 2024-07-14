@@ -1,0 +1,20 @@
+def stringConstruction(s):
+    return len(set(s))
+
+def main():
+    import os
+    import sys
+    input = sys.stdin.read
+    data = input().splitlines()
+    
+    output_path = os.getenv("OUTPUT_PATH")
+    with open(output_path, 'w') as fout:
+        q = int(data[0].strip())
+        
+        for i in range(1, q + 1):
+            s = data[i].strip()
+            result = stringConstruction(s)
+            fout.write(str(result) + "\n")
+
+if __name__ == "__main__":
+    main()
